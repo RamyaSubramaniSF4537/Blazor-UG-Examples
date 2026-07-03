@@ -1,0 +1,53 @@
+﻿@page "/AnnotationSizeChangeEvent"
+
+@using Syncfusion.Blazor.Diagram
+
+<SfDiagramComponent Height="600px" Nodes="@_nodes" SizeChanged="OnSizeChanged" SizeChanging="OnSizeChanging" />
+
+@code
+{
+    private DiagramObjectCollection<Node> _nodes;
+
+    protected override void OnInitialized()
+    {
+        _nodes = new DiagramObjectCollection<Node>();
+        Node node = new Node()
+        {
+            ID = "node1",
+            OffsetX = 250,
+            OffsetY = 250,
+            Width = 100,
+            Height = 100,
+            Style = new ShapeStyle()
+            {
+                Fill = "#6BA5D7",
+                StrokeColor = "white"
+            },
+            Annotations = new DiagramObjectCollection<ShapeAnnotation>()
+            {
+                new ShapeAnnotation
+                {
+                    Content = "Resizable Annotation",
+                    Width = 80,
+                    Height = 40,
+                    Constraints = AnnotationConstraints.Select | AnnotationConstraints.Resize
+                }
+            }
+        };
+        _nodes.Add(node);
+    }
+
+    // Event triggered before annotation size changes
+    private void OnSizeChanging(SizeChangingEventArgs args)
+    {
+        // Prevent size change if needed
+        // args.Cancel = true;
+        Console.WriteLine("Annotation size changing");
+    }
+
+    // Event triggered after annotation size changes
+    private void OnSizeChanged(SizeChangedEventArgs args)
+    {
+        Console.WriteLine("Annotation size changed");
+    }
+}

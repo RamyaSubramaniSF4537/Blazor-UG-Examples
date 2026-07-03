@@ -3,7 +3,7 @@
 @using Syncfusion.Blazor.Diagram
 
 <SfDiagramComponent Height="600px" Nodes="@nodes">
-        <SnapSettings Constraints="SnapConstraints.None"></SnapSettings>
+    <SnapSettings Constraints="SnapConstraints.None"></SnapSettings>
 </SfDiagramComponent>
 
 @code {
@@ -12,39 +12,27 @@
     protected override void OnInitialized()
     {
         nodes.Add(new Node()
+        {
+            ID = "enumNode",
+            OffsetX = 250,
+            OffsetY = 250,
+            Width = 200,
+            Shape = new UmlClassifierShape()
             {
-
-                ID = "enumNode",
-                OffsetX = 150,
-                OffsetY = 150,
-                Width = 220,
-                Shape = new UmlClassifierShape()
+                Classifier = ClassifierShape.Enumeration,
+                EnumerationShape = new UmlEnumeration()
                 {
-                    Classifier = ClassifierShape.Enumeration,
-                    EnumerationShape = new UmlEnumeration()
+                    Name = "Direction",
+                    Members = new DiagramObjectCollection<UmlEnumerationMember>()
                     {
-                        Name = "OrderStatus",
-                        Members = new DiagramObjectCollection<UmlEnumerationMember>()
-                        {
-                            new UmlEnumerationMember()
-                            {
-                                Name = "Pending = 0"
-                            },
-                            new UmlEnumerationMember()
-                            {
-                                Name = "Processing = 1"
-                            },
-                            new UmlEnumerationMember()
-                            {
-                                Name = "Shipped = 2"
-                            },
-                            new UmlEnumerationMember()
-                            {
-                                Name = "Delivered = 3"
-                            }
-                        }
+                        new UmlEnumerationMember() { Name = "North" },
+                        new UmlEnumerationMember() { Name = "South" },
+                        new UmlEnumerationMember() { IsSeparator = true },
+                        new UmlEnumerationMember() { Name = "East" },
+                        new UmlEnumerationMember() { Name = "West" }
                     }
                 }
-            });
+            }
+        });
     }
 }
