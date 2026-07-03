@@ -1,0 +1,51 @@
+﻿@page "/AnnotationPositionChangeEvent"
+
+@using Syncfusion.Blazor.Diagram
+
+<SfDiagramComponent Height="600px" Nodes="@_nodes" PositionChanging="OnPositionChanging" PositionChanged="OnPositionChanged" />
+
+@code
+{
+    private DiagramObjectCollection<Node> _nodes;
+
+    protected override void OnInitialized()
+    {
+        _nodes = new DiagramObjectCollection<Node>();
+        Node node = new Node()
+        {
+            ID = "node1",
+            OffsetX = 250,
+            OffsetY = 250,
+            Width = 100,
+            Height = 100,
+            Style = new ShapeStyle()
+            {
+                Fill = "#6495ED",
+                StrokeColor = "white"
+            },
+            Annotations = new DiagramObjectCollection<ShapeAnnotation>()
+            {
+                new ShapeAnnotation
+                {
+                    Content = "Draggable Annotation",
+                    Constraints = AnnotationConstraints.Select | AnnotationConstraints.Drag
+                }
+            }
+        };
+        _nodes.Add(node);
+    }
+
+    // Event triggered while dragging the annotation
+    private void OnPositionChanging(PositionChangingEventArgs args)
+    {
+        // Prevent position change if needed
+        // args.Cancel = true;
+        Console.WriteLine("Annotation position changing");
+    }
+
+    // Event triggered after annotation position changes
+    private void OnPositionChanged(PositionChangedEventArgs args)
+    {
+        Console.WriteLine("Annotation position changed");
+    }
+}
